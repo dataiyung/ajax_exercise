@@ -1,0 +1,8 @@
+<% if current_user %>
+  <% if post.find_collection(current_user) %>
+    <%= link_to "-", uncollect_post_path(post), :method => :post, :remote => true, :class => "label label-default" %>
+    <% else %>
+
+    <%= link_to "❤", collect_post_path(post), :method => :post, :remote => true, :class => "label label-danger" %>
+    <% end %>
+    <% end %>
