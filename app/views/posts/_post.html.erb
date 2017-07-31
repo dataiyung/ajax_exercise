@@ -5,16 +5,23 @@
   <div class="panel-body">
     <span id="post-thumbsup-<%= post.id %>" class="label label-success"><%= post.likes.count %> 👍</span>
     <%= post.content %>
-
+    <span id="post-heartsup-<%= post.id %>" class="label label-success">
+              <%= post.collections.count %> ❤️
+            </span>
+     <br>
     <div class="text-right">
 
     <span id="post-like-<%= post.id %>">
       <%= render :partial => "like", :locals => { :post => post } %>
     </span>
 
-    <span id="post-collection-<%= post.id %>" class="pull-right">
-      <%= render :partial => "collection", :locals =>{ :post => post} %>
-    </span>
+
+
+    <span id="post-collection-<%= post.id %>">
+             <%= render :partial => "collection", :locals => { :post => post } %>
+         </span>
+
+
 
     <% if current_user && post.user == current_user %>
       <p class="text-right">

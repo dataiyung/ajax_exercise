@@ -40,18 +40,17 @@ end
 
 def collect
   @post = Post.find(params[:id])
-  unless @post.find_collect(current_user)
-    Collection.create( :user => current_user, :post => @post)
+  unless @post.find_collection(current_user)
+    Collection.create!( :user => current_user, :post => @post )
   end
-render "collection"
 end
 
 
-def uncollect
+def discollect
   @post = Post.find(params[:id])
-  collection = @post.find_collect(current_user)
+  collection = @post.find_collection(current_user)
   collection.destroy
- render "collection"
+ render "collect"
 end
 
 

@@ -13,18 +13,8 @@
 <% @posts.each do |post| %>
 
 
-
   <%= render :partial => "post", :locals => { :post => post} %>
-</div>
+
 <% end %>
 
-<% if current_user && current_user.is_member_of?(post) %>
-  <%= link_to quit_post_path(post), :method => :post, :class => "btn btn-danger" do %>
-  <i class="fa fa-heart" aria-hidden="true"></i>
-  <% end %>
-  <% else %>
-
-  <%= link_to join_post_path(post), :method => :post, :class => "btn btn-primary" do %>
-  <i class="fa fa-heart-o" aria-hidden="true"></i>
-  <% end %>
-  <% end %>
+</div>

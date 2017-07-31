@@ -1,0 +1,11 @@
+<% if post.collected_users.any? %>
+  <%= post.collected_users.map{ |u| u.display_name }.join(",") %> collect this post
+<% end %>
+
+<% if current_user  %>
+  <% if post.find_collection(current_user) %>
+    <%= link_to "discollect", discollect_post_path(post), :method => :post, :remote => true,  :class => "btn btn-primary" %>
+  <% else %>
+    <%= link_to "collect", collect_post_path(post), :method => :post, :remote => true,  :class => "btn btn-primary" %>
+  <% end %>
+<% end %>
