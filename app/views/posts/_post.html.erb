@@ -25,9 +25,22 @@
 
     <% if current_user && post.user == current_user %>
       <p class="text-right">
-        <%= link_to "Delete", post_path(post), :method => :delete, :class => "btn btn-danger", :remote => true %>
+      <%= link_to "Delete", post_path(post), :class => "delete-post btn btn-danger" %>
       </p>
     <% end %>
   </div>
+
+
+
+    </div>
+
+    <div class="panel-footer">
+        <% if current_user && current_user.is_admin? %>
+        <label>
+          <%= check_box_tag "mark_flag[#{post.id}]", 1, post.flag_at.present?,
+          :data => { :url => toggle_flag_post_path(post)}, :class => "toggle-flag" %> 標記為垃圾
+          <span id="post-flag-<%= post.id %>"> <%= post.flag_at %></span>
+        </label>
+        <% end %>
     </div>
 </div>

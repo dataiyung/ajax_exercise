@@ -17,6 +17,10 @@ class User < ApplicationRecord
     self.email.split("@").first
   end
 
+  def is_admin?
+    role == "admin"
+  end
+
 
 
 end

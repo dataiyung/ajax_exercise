@@ -1,0 +1,10 @@
+<% @posts.each do |post| %>
+console.log("checkpoint A");
+$("#post-lost").append("<hr>")
+$("#post-list").append("<%=j render :partial => "post", :locals => { :post => post } %>");
+<% end %>
+
+<% if @posts.any? %>
+var current_post_id = <%= @posts.last.id %>;
+<% end %>
+console.log("checkpoint B");
