@@ -76,6 +76,15 @@ end
   render :json => { :message => "ok", :flag_at => @post.flag_at, :id => @post.id }
 end
 
+
+def update
+  
+  @post = Post.find(params[:id])
+  @post.update!( post_params )
+
+  render :json => { :id => @post.id, :messgae => "ok"}
+end
+
   protected
 
   def post_params

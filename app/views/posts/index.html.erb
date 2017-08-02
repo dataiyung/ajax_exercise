@@ -20,18 +20,38 @@
 </div>
 
 <script>
-  $(".toggle-flag").on('change', function(){
+  $("#post-list").on('change', ".select_category", function(){
     var url = $(this).data("url");
-
+    var that = this;
+    $.ajax({
+      url: url,
+      method: "PATCH",
+      dataType: "json",
+      data: {
+        post: {
+          category_id: $(this).val()
+        }
+      },
+      beforeSend: function(){
+        $(that).after( $(' <img src="/images/ajax-loader.gif" id="ajax-loading"> ') );
+      },
+      complete: function(){
+        $("#ajax-loading").remove();
+      }
+    });
+  });
+  $("#post-list").on('change', ".toggle-flag", function(){
+    var url = $(this).data("url");
+    var that = this;
     $.ajax({
       url: url,
       method: "POST",
       dataType: "json",
       success: function(data){
         if ( data["flag_at"] ) {
-          $("#post-flag-" + data["id"]).html(data["flag_at"]);
+        $(that).closet("label").find("span").html(data["flag_at"])
         } else {
-          $("#post-flag-" + data["id"]).html("");
+          $(that).closet("label").find("span").html("")
         }
       }
     });
@@ -56,12 +76,13 @@
     }
   })
   // 這會綁click 事件到所有有 '.delete-post' class 的元素上，也就是所有的刪除按鈕
-  $(".delete-post").click(function(evt){
+    $("#post-list").on('click', ".delete-post", function(evt){
     // 'evt' 是瀏覽器的事件物件， evt.preventDefault(); 會終止這個元素的默認行為:
     // 超連結  a 的默認行為是跳到下一頁，如果沒有這行的話，送出 ajax後會跳出 show page
     evt.preventDefault();
     // this 是個特別的變量， 代表觸發事件的元素。 使用 attr 可以讀取元素的屬性， 這裏要拿到超連結的網址
     var url = $(this).attr("href");
+    var that = this;
 
     // 送出 Ajax
     $.ajax({
@@ -69,7 +90,7 @@
       method: 'DELETE',
       dataType: 'json', // 要求服務器回傳 JSON
       success: function(data){    //data 就是服務器回傳的Json資料
-        $("#post-" + data["id"]).remove();
+        $(that).closest(".panel").remove();
       }
     })
   })
