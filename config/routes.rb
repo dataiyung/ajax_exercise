@@ -16,6 +16,7 @@ resources :posts do
     post "toggle_flag" => "posts#toggle_flag"
       post "collect" => "posts#collect"
       post "discollect" => "posts#discollect"
+      post "rate" => "posts#rate"
   end
 end
 
